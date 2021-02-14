@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 class Survey(models.Model):
   key = models.CharField(max_length=6) # The alphanumeric key the user enters to find the survey

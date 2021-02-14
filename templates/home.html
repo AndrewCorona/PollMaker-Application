@@ -1,6 +1,22 @@
-<html>
-    <head>
-        <title>Home Page
-        </title>
-    </head>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}PollMaker{% endblock title %}
+
+{% block content %}
+<br/>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to PollMaker</h1>
+    <p class="lead">A Django based Survey creation and answering tool.
+        <br/>To Begin, select an option.
+    </p>
+</div>
+{% endblock content %}
+
+{% block options %}
+<div class="container">
+    <br/>
+    <a href="{% url 'surveycreate' %}" i class="far fa-plus-square" role="button">Create a Poll</a></i>
+    <br/>
+    <a href="{% url 'surveylookup' %}" i class="fas fa-search" role="button">Find or answer a poll</a></i>
+</div>
+{% endblock options %}

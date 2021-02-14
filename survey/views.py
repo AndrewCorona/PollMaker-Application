@@ -1,29 +1,28 @@
 from django.shortcuts import render
 from .models import Survey, SurveyOption, SurveyAnswer
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
+from django.urls import reverse_lazy
 
-def SurveyCreate(request):
-    model = Survey
-    template_name = 'surveycreate.html'
+class HomePageView(TemplateView):
+    template_name = 'home.html'
 
-def SurveyCreated(request):
-    model = Survey
-    template_name = 'surveycreated.html'
+class SurveyCreateView(TemplateView):
+    template_name = 'surveycreation/surveycreate.html'
 
-def SurveyLookUp(request):
-    model = SurveyAnswer
-    template_name = 'surveylookup.html'
+class SurveyCreatedView(TemplateView):
+    template_name = 'surveycreation/surveycreated.html'
 
-def SurveyAnswer(request):
-    model = SurveyAnswer
-    template_name = 'surveyanswer.html'
+class SurveyAnswerView(TemplateView):
+    template_name = 'surveyanswer/surveyanswer.html'
 
-def SurveyResults(request):
-    model = SurveyAnswer
-    template_name = 'surveyresults.html'
+class SurveyAnswerKeyView(TemplateView):
+    template_name = 'surveyanswer/surveyanswerkey.html'
 
-def HomePage(request):
-    return render(request, template_name='home.html')
+class SurveyLookUpView(TemplateView):
+    template_name = 'surveyanswer/surveylookup.html'
+
+class SurveyResultsView(TemplateView):
+    template_name = 'surveyanswer/surveyresults.html'
 
 #https://docs.djangoproject.com/en/3.1/topics/class-based-views/
 #https://docs.djangoproject.com/en/3.1/topics/http/views/
