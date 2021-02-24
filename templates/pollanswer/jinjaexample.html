@@ -1,0 +1,16 @@
+<h1 class="text-center mb-3">Poll</h1>
+{% for question in poll_displayquestion %}
+<div class="card mb-3">
+<div class="card-body">
+    <p class="lead">{{ question.question }}</p>
+</div>
+</div>
+{% endfor %}
+
+{% for answer in poll_displayanswers %}
+<div class="card mb-3">
+<div class="card-body">
+    <p class="lead">{{ answer.answer }}</p>
+</div>
+</div>
+{% endfor %}

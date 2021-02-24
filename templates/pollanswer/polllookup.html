@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<head>
+    {% block title %}PollMaker - Look-Up{% endblock title %}
+
+    <link rel="stylesheet" type="text/css" href="../../staticfiles/admin/css/polllookup.css" media="screen" />
+</head>
+
+<main>
+    {% block content %}
+    <form class="example" action="submit">
+        <input type="text" placeholder="Enter Poll ID">
+        <button type="submit" href="{% url 'answer' %}"><i class="fa fa-search"></i></button>
+    </form>
+    {% endblock content %}
+</main>
