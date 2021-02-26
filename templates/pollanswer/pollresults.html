@@ -3,28 +3,14 @@
 {% block title %}PollMaker - Results{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-8 col-lg-offset-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Poll Result</h3>
-            </div>
+<h1 class="mb-5 text-center">{{PollQuestion.question}}</h1>
 
-            <div class="panel-body">
-                <h3>Which language is easier to learn?</h3>
-            </div>
-
-            <ul class="list-group">
-                <li class="list-group-item">Python &mdash; <strong>3</strong></li>
-                <li class="list-group-item">JavaScript &mdash; <strong>3</strong></li>
-                <li class="list-group-item">Swift &mdash; <strong>4</strong></li>
-            </ul>
-
-            <div class="panel-footer">
-                Total &mdash; <strong>10</strong>
-            </div>
-
-        </div>
-    </div>
-</div>
+<ul class="list-group mb-5">
+    {% for PollAnswer in PollQuestion.choice_set.all %}}
+    <li class="list-group-item">
+        {{PollAnswer.answer}} <span class="badge badge-success float-right">{{PollAnswer.votes}} vote{{PollAnswer.votes | pluralize}}
+        </span>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

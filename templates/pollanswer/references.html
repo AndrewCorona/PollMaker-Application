@@ -1,0 +1,76 @@
+<h1 class="text-center mb-3">Poll</h1>
+{% for question in poll_displayquestion %}
+<div class="card mb-3">
+<div class="card-body">
+    <p class="lead">{{ question.question }}</p>
+</div>
+</div>
+{% endfor %}
+
+{% for answer in poll_displayanswers %}
+<div class="card mb-3">
+<div class="card-body">
+    <p class="lead">{{ answer.answer }}</p>
+</div>
+</div>
+{% endfor %}
+
+# def pollcreate(request):
+#     if request.method == "POST":
+#         question_form = QuestionForm(request.post)
+#         answer_form = AnswerForm(request.post)
+
+#         if question_form.is_valid() and answer_form.is_valid():
+#             poll = question_form.save()
+#             pollanswer = answer_form.save(False)
+            
+#             pollanswer.poll=poll
+#             pollanswer.save()
+
+#             return redirect(reverse('PollMaker.views.PollCreatedView'))
+
+#     else:
+#         question_form = QuestionForm()
+#         answer_form = AnswerForm()
+    
+#     return render(request, "pollcreation/pollcreate.html", {'question_form':question_form, 'answer_form':answer_form})
+
+# def results(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     return render(request, 'pollcreation/pollresults.html', { 'question': question })
+
+
+# def resultsData(request, obj):
+#     votedata = []
+
+#     question = PollQuestion.objects.get(id=obj)
+#     votes = poll.choice_set.all
+
+#     for i in votes:
+#         votedata.append({i.answer:i.votes})
+
+#     return JsonResponse(votedata, safe=False)
+
+# def vote(request, question_id):
+#     question = get_object_or_404(PollQuestion, pk=question_id)
+#     try:
+#         selected_choice = question.choice_set.get(pk=request.POST['choice'])
+#     except (KeyError, Choice.DoesNotExist):
+#         return render(request, 'pollanswer/pollvote.html', {
+#             'question': question,
+#             'error_message': "you didn't select a choice.",
+#         })
+#     else:
+#         selected_choice.votes +=1
+#         selected_choice.save()
+#         return redirect(reverse('results', args=(question.id)))
+
+class PollAnswerView(TemplateView):
+    template_name = 'pollanswer/pollanswer.html'
+    model = PollQuestion
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['poll_displayquestion'] = PollQuestion.objects.all
+        context['poll_displayanswers'] = PollAnswer.objects.all
+        return context
