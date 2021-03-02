@@ -1,13 +1,7 @@
-from django import forms
 from django.forms import ModelForm
-from .models import PollQuestion, PollAnswer
+from .models import PollModel
 
-class QuestionForm(ModelForm):
+class PollForm(ModelForm):
     class Meta:
-        model = PollQuestion
-        fields = ['question'] 
-
-class AnswerForm(ModelForm):
-    class Meta:
-        model = PollAnswer
-        fields = ['answer']
+        model = PollModel
+        fields = ['question', 'answerone', 'answertwo', 'answerthree'] 

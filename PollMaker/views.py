@@ -1,39 +1,65 @@
 from django.shortcuts import render, redirect
-from .models import PollQuestion, PollAnswer
-from django.views.generic import View, CreateView, TemplateView
-from django.urls import reverse_lazy
-from .forms import QuestionForm, AnswerForm
-from django.http import JsonResponse
+from .models import PollModel
+from .forms import PollForm
+from django.http import HttpResponse
 
 
-class HomePageView(TemplateView):
-    template_name = 'home.html'
+def home(request):
+    polls = PollModel.objects.all()
+    context = {
+        'polls' : polls
+    }
+    return render(request, 'home.html', context)
 
-class PollCreateView(TemplateView):
-    template_name = 'pollcreation/pollcreate.html'
+def create(request):
+    if request.method == 'POST':
+        form = PollForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('created')
+    else:
+        form = PollForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'pollcreation/pollcreate.html', context)
 
-# need a view that has a form that saves question title into question model, and associated answers for the question in a answer model
+def created(request):
+    return render(request, 'pollcreation/pollcreated.html')
 
-class PollCreatedView(TemplateView):
-    template_name = 'pollcreation/pollcreated.html'
+def lookup(request):
+    return render(request, 'pollanswer/polllookup.html')
 
+def results(request, poll_id):
+    poll = PollModel.objects.get(pk=poll_id)
+    context = {
+        'poll' : poll
+    }
+    return render(request, 'pollanswer/pollresults.html', context)
 
+def vote(request, poll_id):
+    poll = PollModel.objects.get(pk=poll_id)
 
-class PollLookUpView(TemplateView):
-    template_name = 'pollanswer/polllookup.html'
+    if request.method == 'POST':
 
-class PollResultsView(TemplateView):
-    template_name = 'pollanswer/pollresults.html'
+        selected_option = request.POST['poll']
+        if selected_option == 'choice1':
+            poll.answeronevotes += 1
+        elif selected_option == 'choice2':
+            poll.answertwovotes += 1
+        elif selected_option == 'choice3':
+            poll.answerthreevotes += 1
+        else:
+            return HttpResponse(400, 'Invalid form')
 
-# need a view that renders the vote variable from the answer model onto the page, this shows right after finishing the voteview
+        poll.save()
 
-class PollVoteView(TemplateView):
-    template_name = 'pollanswer/pollvote.html'
+        return redirect('results', poll.id)
 
-# need a view that gets the question model, and answer model associated to render on the screen. The answeree can then review and select an answer to vote for, or if the boolean
-# from the question model is set to true (can set own answer), then user will have the pre-set answers, as well as a empty field if they wish to create their custom answer. This 
-# custom answer will append to the answer model and allow future answerees of the poll to select that option.
-        
+    context = {
+        'poll' : poll
+    }
+    return render(request, 'pollanswer/pollvote.html', context)
 
 
 #https://docs.djangoproject.com/en/3.1/topics/class-based-views/

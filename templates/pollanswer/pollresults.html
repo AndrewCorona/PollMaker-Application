@@ -3,14 +3,28 @@
 {% block title %}PollMaker - Results{% endblock %}
 
 {% block content %}
-<h1 class="mb-5 text-center">{{PollQuestion.question}}</h1>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Poll Results</h3>
+            </div>
 
-<ul class="list-group mb-5">
-    {% for PollAnswer in PollQuestion.choice_set.all %}}
-    <li class="list-group-item">
-        {{PollAnswer.answer}} <span class="badge badge-success float-right">{{PollAnswer.votes}} vote{{PollAnswer.votes | pluralize}}
-        </span>
-    </li>
-    {% endfor %}
-</ul>
+            <div class="panel-body">
+                <h3>{{ poll.question }}</h3>
+            </div>
+
+            <ul class="list-group">
+                <li class="list-group-item">{{ poll.answerone }} &mdash; <strong>{{ poll.answeronevotes }}</strong></li>
+                <li class="list-group-item">{{ poll.answertwo }} &mdash; <strong>{{ poll.answertwovotes }}</strong></li>
+                <li class="list-group-item">{{ poll.answerthree }} &mdash; <strong>{{ poll.answerthreevotes }}</strong></li>
+            </ul>
+
+            <div class="panel-footer">
+                Total &mdash; <strong>{{ poll.total }}</strong>
+            </div>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

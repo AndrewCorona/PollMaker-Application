@@ -6,11 +6,19 @@
     <link rel="stylesheet" type="text/css" href="../../staticfiles/admin/css/polllookup.css" media="screen" />
 </head>
 
-<main>
-    {% block content %}
-    <form class="example" action="submit">
-        <input type="text" placeholder="Enter Poll ID">
-        <button type="submit" href="{% url 'answer' %}"><i class="fa fa-search"></i></button>
-    </form>
-    {% endblock content %}
-</main>
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Enter a Poll ID</h3>
+            </div>
+            <form class="example" action="submit">
+                
+                <input type="string" placeholder="Enter Poll ID">
+                <button type="submit" href="{% url 'home' %}"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
