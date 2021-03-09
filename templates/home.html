@@ -10,17 +10,8 @@
     <div class="jumbotron">
         <h1 class="display-4">Welcome to PollMaker</h1>
         <p class="lead">A Django based poll creation and answering tool.
-            <br />To Begin, select an option.
+            <br />To Begin, select an option up top.
         </p>
     </div>
     {% endblock content %}
-
-    {% block options %}
-    <div class="container">
-        <br />
-        <a href="{% url 'create' %}" i class="far fa-plus-square" role="button">Create a Poll</a></i>
-        <br />
-        <a href="{% url 'lookup' %}" i class="fas fa-search" role="button">Find or answer a poll</a></i>
-    </div>
-    {% endblock options %}
 </main>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import PollModel
 from .forms import PollForm
 from django.http import HttpResponse
@@ -15,8 +15,9 @@ def create(request):
     if request.method == 'POST':
         form = PollForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('created')
+            new_poll = form.save()
+            context = {'primary_key': new_poll.pk}
+            return render(request, 'pollcreation/pollcreated.html', context)
     else:
         form = PollForm()
     context = {
@@ -26,9 +27,6 @@ def create(request):
 
 def created(request):
     return render(request, 'pollcreation/pollcreated.html')
-
-def lookup(request):
-    return render(request, 'pollanswer/polllookup.html')
 
 def results(request, poll_id):
     poll = PollModel.objects.get(pk=poll_id)
