@@ -33,6 +33,7 @@ def results(request, poll_id):
     context = {
         'poll' : poll
     }
+
     return render(request, 'pollanswer/pollresults.html', context)
 
 def vote(request, poll_id):

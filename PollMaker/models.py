@@ -14,4 +14,22 @@ class PollModel(models.Model):
   def total(self):
     return self.answeronevotes + self.answertwovotes + self.answerthreevotes
 
+  def answeronepercent(self):
+    results = self.answeronevotes + self.answertwovotes + self.answerthreevotes
+    results2 = self.answeronevotes / results
+    results3 = results2 * 100
+    return round(results3)
+
+  def answertwopercent(self):
+    results = self.answeronevotes + self.answertwovotes + self.answerthreevotes
+    results2 = self.answertwovotes / results
+    results3 = results2 * 100
+    return round(results3)
+
+  def answerthreepercent(self):
+    results = self.answeronevotes + self.answertwovotes + self.answerthreevotes
+    results2 = self.answerthreevotes / results
+    results3 = results2 * 100
+    return round(results3)
+
  
