@@ -8,9 +8,11 @@
     {% block content %}
     <br />
     <div class="jumbotron">
-        <h1 class="display-4">Welcome to PollMaker</h1>
+        <h1 class="display-4">PollMaker</h1>
         <p class="lead">A Django based poll creation and answering tool.
-            <br />To Begin, select an option up top.
+            <br>
+            <br><a href="{% url 'create' %}">To begin, you can click here</a>
+            <br>If you have a vote link, enter it in the URL
         </p>
     </div>
     {% endblock content %}
